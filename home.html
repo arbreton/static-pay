@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encanta Cafe Payments</title>
-    <!-- Use Tailwind CSS for a modern and responsive design -->
+    <title>Pagos de Encanta Cafe</title>
+    <!-- Usar Tailwind CSS para un diseño moderno y responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font for a clean look -->
+    <!-- Usar la fuente Inter para una apariencia limpia -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom styles for the animated message box */
+        /* Estilos personalizados para la caja de mensaje animada (toast) */
         .message-box {
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
             transform: translateY(20px);
@@ -28,82 +28,85 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
-    <!-- Main container for the website content -->
+    <!-- Contenedor principal para el contenido del sitio web -->
     <div class="bg-white rounded-xl shadow-lg p-6 max-w-sm w-full space-y-6">
 
-        <!-- Image provided by the user. Updated to use 'design.jpg' from the root folder. -->
+        <!-- Imagen proporcionada por el usuario. Actualizada para usar 'design.jpg' de la carpeta raíz. -->
         <img src="design.jpg"
-             alt="Encanta Cafe Payment Information"
+             alt="Información de Pago de Encanta Cafe"
              class="w-full rounded-lg shadow-md"
              onerror="this.src='https://placehold.co/400x400/e9d8a6/4f3e3e?text=Encanta+Cafe';">
 
-        <!-- Button to copy the CLABE number -->
+        <!-- Botón para copiar el número CLABE -->
         <button id="copyClabeBtn"
                 class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200 ease-in-out">
-            Copy CLABE
+            Copiar CLABE
         </button>
 
-        <!-- Button to copy the card number -->
+        <!-- Botón para copiar el número de tarjeta -->
         <button id="copyCardBtn"
                 class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200 ease-in-out">
-            Copy Card Number
+            Copiar Número de Tarjeta
         </button>
 
     </div>
 
-    <!-- Message box for user feedback -->
+    <!-- Caja de mensaje (toast) para retroalimentación al usuario -->
     <div id="messageBox"
-         class="message-box fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-xl">
-        Copied to clipboard!
+         class="message-box fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-xl whitespace-nowrap">
+        <!-- El texto del mensaje se establecerá dinámicamente -->
     </div>
 
     <script>
-        // Data to be copied
+        // Datos a copiar
         const clabeNumber = "777654357654323";
         const cardNumber = "4241-4444-3333-5555";
 
         const messageBox = document.getElementById('messageBox');
 
         /**
-         * Copies text to the clipboard and shows a temporary message.
-         * @param {string} text The text to copy.
+         * Copia texto al portapapeles y muestra un mensaje temporal.
+         * @param {string} text El texto a copiar.
+         * @param {string} item El nombre del elemento copiado (ej. "CLABE", "Número de Tarjeta").
          */
-        function copyToClipboard(text) {
-            // A temporary textarea is used to select and copy the text
+        function copyToClipboard(text, item) {
+            // Se usa un textarea temporal para seleccionar y copiar el texto
             const tempInput = document.createElement('textarea');
             tempInput.value = text;
             document.body.appendChild(tempInput);
             tempInput.select();
 
             try {
-                // Execute the copy command
+                // Ejecutar el comando de copiar
                 document.execCommand('copy');
-                showMessage();
+                showMessage(item);
             } catch (err) {
-                console.error('Failed to copy text: ', err);
+                console.error('Fallo al copiar el texto: ', err);
             } finally {
-                // Clean up the temporary element
+                // Limpiar el elemento temporal
                 document.body.removeChild(tempInput);
             }
         }
 
         /**
-         * Shows the message box for a short duration.
+         * Muestra la caja de mensaje (toast) por una corta duración.
+         * @param {string} item El nombre del elemento copiado para mostrar en el mensaje.
          */
-        function showMessage() {
+        function showMessage(item) {
+            messageBox.textContent = `¡Copiado: ${item}!`; // Establece el texto del mensaje
             messageBox.classList.add('show');
             setTimeout(() => {
                 messageBox.classList.remove('show');
-            }, 2000); // Hide after 2 seconds
+            }, 2000); // Ocultar después de 2 segundos
         }
 
-        // Add click event listeners to the buttons
+        // Añadir escuchadores de eventos click a los botones
         document.getElementById('copyClabeBtn').addEventListener('click', () => {
-            copyToClipboard(clabeNumber);
+            copyToClipboard(clabeNumber, 'CLABE');
         });
 
         document.getElementById('copyCardBtn').addEventListener('click', () => {
-            copyToClipboard(cardNumber);
+            copyToClipboard(cardNumber, 'Número de Tarjeta');
         });
     </script>
 
