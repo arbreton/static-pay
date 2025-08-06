@@ -4,15 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagos de Encanta Cafe</title>
-    <!-- Usar Tailwind CSS para un diseño moderno y responsivo -->
+
+    <!-- Load Tailwind CSS first -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Usar la fuente Inter para una apariencia limpia -->
+
+    <!-- Custom Tailwind CSS configuration for Encanta Cafe theme colors -->
+    <!-- This script MUST come AFTER the main Tailwind CSS script -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'encanta-bg-light': '#F5F2EC',       /* Very light, warm beige for body background */
+                        'encanta-card-bg': '#FCFBF9',        /* Slightly off-white/cream for card background */
+                        'encanta-matcha': '#7A9A6B',         /* Muted, earthy matcha green for buttons */
+                        'encanta-matcha-dark': '#5F7A52',    /* Darker matcha green for button hover */
+                        'encanta-text-dark': '#4A3B2F',      /* Deep, warm brown for text */
+                        'encanta-toast-bg': '#3A302A',       /* Dark, almost black-brown for toast background */
+                    },
+                    // You can add custom fonts here if you want a more "witchy" title font.
+                    // For example:
+                    // fontFamily: {
+                    //     witchy: ['"Cormorant Garamond"', 'serif'],
+                    //     sans: ['Inter', 'sans-serif'], // Keep Inter as default sans-serif
+                    // }
+                }
+            }
+        }
+    </script>
+
+    <!-- Load Inter font for general text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- If you decide to use a "witchy" font for titles, uncomment and add it here: -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet"> -->
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            /* If using a decorative font for titles, you might apply it here or to specific elements */
+            /* .encanta-title { font-family: 'Cormorant Garamond', serif; } */
         }
         /* Estilos personalizados para la caja de mensaje animada (toast) */
         .message-box {
@@ -26,26 +58,26 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+<body class="bg-encanta-bg-light text-encanta-text-dark flex items-center justify-center min-h-screen p-4">
 
     <!-- Contenedor principal para el contenido del sitio web -->
-    <div class="bg-white rounded-xl shadow-lg p-6 max-w-sm w-full space-y-6">
+    <div class="bg-encanta-card-bg rounded-xl shadow-lg p-6 max-w-sm w-full space-y-6">
 
         <!-- Imagen proporcionada por el usuario. Actualizada para usar 'design.jpg' de la carpeta raíz. -->
         <img src="design.jpg"
              alt="Información de Pago de Encanta Cafe"
              class="w-full rounded-lg shadow-md"
-             onerror="this.src='https://placehold.co/400x400/e9d8a6/4f3e3e?text=Encanta+Cafe';">
+             onerror="this.src='https://placehold.co/400x400/7A9A6B/FCFBF9?text=Encanta+Cafe';">
 
         <!-- Botón para copiar el número CLABE -->
         <button id="copyClabeBtn"
-                class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200 ease-in-out">
+                class="w-full bg-encanta-matcha text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-encanta-matcha-dark focus:outline-none focus:ring-2 focus:ring-encanta-matcha focus:ring-offset-2 transition-colors duration-200 ease-in-out">
             Copiar CLABE
         </button>
 
         <!-- Botón para copiar el número de tarjeta -->
         <button id="copyCardBtn"
-                class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200 ease-in-out">
+                class="w-full bg-encanta-matcha text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-encanta-matcha-dark focus:outline-none focus:ring-2 focus:ring-encanta-matcha focus:ring-offset-2 transition-colors duration-200 ease-in-out">
             Copiar Número de Tarjeta
         </button>
 
@@ -53,7 +85,7 @@
 
     <!-- Caja de mensaje (toast) para retroalimentación al usuario -->
     <div id="messageBox"
-         class="message-box fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-xl whitespace-nowrap">
+         class="message-box fixed bottom-4 left-1/2 -translate-x-1/2 bg-encanta-toast-bg text-white text-sm font-medium py-2 px-4 rounded-lg shadow-xl whitespace-nowrap">
         <!-- El texto del mensaje se establecerá dinámicamente -->
     </div>
 
